@@ -15,8 +15,9 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     var searchResults: [MKLocalSearchCompletion]?    
     let cellID = "cityCellID"
     let wm = WeatherManager()
-    var weather: CurrentWeather?
+    var currentWeather: CurrentWeather?
     var forecast: Forecast?
+    var weatherObject: WeatherObject?
     var city = ""
     @IBOutlet weak var cityResultsTableView: UITableView!
     @IBOutlet weak var cityTextField: UITextField!
@@ -38,23 +39,41 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
         
     @IBAction func onCurrentWeather(_ sender: UIButton) {
-        wm.getCurrentWeatherForCity(self.city) { (weather, error) in
-            if let weather = weather {
-                self.weather = weather
-            } else {
-                self.handleError()
-            }
-            self.wm.getFiveDaysForecastForCity(self.city, completion: { (forecast, error) in
+        self.fetchWeather(city: self.city)
+    }
+    
+    func fetchWeather(city: String){
+        let dispatchGroup = DispatchGroup()
+        let queueImage = DispatchQueue(label: "com.currentWeather")
+        let queueVideo = DispatchQueue(label: "com.forecast")
+        
+        dispatchGroup.enter()
+        queueImage.async(group: dispatchGroup) {
+            self.wm.getFiveDaysForecastForCity(city) { (forecast, error) in
                 if let forecast = forecast {
                     self.forecast = forecast
-                } else {
-                    self.handleError()
+                    dispatchGroup.leave()
                 }
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "textBasedCurrentWeather", sender: self)
+            }
+        }
+        
+        dispatchGroup.enter()
+        queueVideo.async(group: dispatchGroup) {
+            self.wm.getCurrentWeatherForCity(city, completion: { (weather, error) in
+                if let weather = weather {
+                    self.currentWeather = weather
+                    dispatchGroup.leave()
                 }
             })
-        } 
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            if let weather = self.currentWeather, let forecast = self.forecast {
+                let wo = WeatherObject(weather: weather, forecast: forecast)
+                self.weatherObject = wo
+                self.performSegue(withIdentifier: "textBasedCurrentWeather", sender: self)
+            }
+        }
     }
     
     // MARK: - Update UI
@@ -76,7 +95,7 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     }
     
     func reset() {
-        self.weather = nil
+        self.currentWeather = nil
         self.cityTextField.text = nil
         self.searchCompleter.queryFragment = self.cityTextField.text!
         self.searchResults?.removeAll()
@@ -98,8 +117,9 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "textBasedCurrentWeather") {
             let vc = segue.destination as! TextBasedWeatherDetailVC
-            vc.currentWeather = self.weather
-            vc.forecast = self.forecast
+            if let wo = self.weatherObject {
+                vc.weatherObject = wo
+            }
         }
     }
 }

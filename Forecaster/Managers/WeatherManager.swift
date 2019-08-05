@@ -10,24 +10,6 @@ import Foundation
 import UIKit
 import CoreLocation
 
-// Struct wrapper for ability to store NSCache
-
-//class StructWrapper: NSObject {
-//
-//    let value: Forecast
-//
-//    init(_ value: Forecast) {
-//        self.value = value
-//    }
-//
-//    override func isEqual(_ object: Any?) -> Bool {
-//        guard let other = object as? Forecast else {
-//            return false
-//        }
-//        return value.id == other.id
-//    }
-//}
-
 class WeatherManager {
         
     let client = Client.init(baseUrl: "https://api.openweathermap.org/data/2.5")

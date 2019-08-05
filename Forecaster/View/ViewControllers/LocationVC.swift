@@ -10,19 +10,15 @@ import UIKit
 import CoreLocation
 
 protocol LocationDelegate {
-    func updateWeather(_ weather: CurrentWeather)
-    func updateForecast(_ forecast: Forecast)
+    func updateWeatherObject(_ weatherObject: WeatherObject)
 }
 
-class LocationVC: UIViewController {
+class LocationVC: UIViewController, CurrentLocationViewModelDelegate {
     
     let locationManager = CLLocationManager()
-    let wm = WeatherManager()
-    var tableData = [String: String]()
-    var tabelTitles = [String]()
-    var currentWeather: CurrentWeather?
-    var forecast: Forecast?
-    var delegate: LocationDelegate?
+    var weatherObject: WeatherObject?           
+    var delegate: LocationDelegate?    
+    var viewModel: CurrentLocationViewModel?
     
     // MARK: - Lifecycle
     
@@ -38,24 +34,22 @@ class LocationVC: UIViewController {
             locationManager.startUpdatingLocation()
         }
         
-        self.downloadDetails()
+        self.fetchWeather()
     }
     
-    func downloadDetails(){
+    // MARK: - Private
+    
+    func fetchWeather(){
         guard let location = self.locationManager.location else { return }
-        wm.getFiveDaysForecastByCoordinates(location.coordinate) { (forecast, error) in
-            if let forecast = forecast {
-                self.forecast = forecast
-                if let fiveDayForecast = self.forecast {
-                    self.delegate?.updateForecast(fiveDayForecast)
-                }
-            }
-            self.wm.getWeatherByCoordinates(location.coordinate) { (weather, error) in
-                if let weather = weather {
-                    self.delegate?.updateWeather(weather)
-                }
-            }
-        }                       
+        self.viewModel = CurrentLocationViewModel(location: location.coordinate)
+        self.viewModel?.delegate = self
+        self.viewModel?.fetchWeather()
+    }
+    
+    // MARK: - CurrentLocationViewModelDelegate
+    
+    func updateWeatherObject(_ weatherObject: WeatherObject) {
+        self.delegate?.updateWeatherObject(weatherObject)
     }
     
     // MARK: - Navigation
@@ -63,8 +57,7 @@ class LocationVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "currentLocationWeatherInfo" {
             let vc = segue.destination as! WeatherInfoContainerVC
-            vc.currentWeather = self.currentWeather
-            vc.forecast = self.forecast
+            vc.weatherObject = self.weatherObject
             self.delegate = vc
         }
     }

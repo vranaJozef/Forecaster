@@ -42,6 +42,7 @@ class OneDayForecastTableViewCell: UITableViewCell {
         forecastTableView.delegate = self
         forecastTableView.dataSource = self
         forecastTableView.isScrollEnabled = true
+        forecastTableView.frame = self.bounds
         forecastTableView.register(UINib(nibName: "CustomForecastTableviewCell", bundle: nil), forCellReuseIdentifier: cellID)
         forecastTableView.tableFooterView = UIView(frame: .zero)
     }

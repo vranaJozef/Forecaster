@@ -43,6 +43,7 @@ class FiveDaysForecastTableViewCell: UITableViewCell {
         fiveDaysForecastTableView.delegate = self
         fiveDaysForecastTableView.dataSource = self
         fiveDaysForecastTableView.isScrollEnabled = true
+        fiveDaysForecastTableView.frame = self.bounds
         fiveDaysForecastTableView.register(UINib(nibName: "CustomFiveDaysForecastTableViewCell", bundle: nil), forCellReuseIdentifier: cellID)
         fiveDaysForecastTableView.tableFooterView = UIView(frame: .zero)
     }

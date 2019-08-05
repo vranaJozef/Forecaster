@@ -11,34 +11,28 @@ import UIKit
 import CoreLocation
 import Disk
 
-class WeatherInfoContainerVC: UIViewController, LocationDelegate {
+class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDelegate {
     
     @IBOutlet weak var forecastTableView: UITableView!
     @IBOutlet weak var forecastCollectionView: UICollectionView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    var weatherObject: WeatherObject? {
+        didSet {
+            guard let weatherObject = weatherObject else { return }
+            viewModel = WeatherInfoViewModel(weatherObject: weatherObject)
+            self.viewModel?.delegate = self
+            viewModel?.update()
+        }
+    }
     let tableViewCellID = "locationWeatherCellID"
     let forecastCellID = "locationForecastCellID"
     let collectionViewCellID = "forecastCollectionViewCellID"
-    let wm = WeatherManager()
     var searchedHistory: [String:WeatherObject]?
-    var currentWeather: CurrentWeather? {
-        didSet {
-            self.reloadTableView()
-        }
-    }
-    var tableData = [String: String]()
-    var fiveDaysForecastTableData = [String: String]()
-    var tabelTitles = [String]()
-    var forecast: Forecast? {
-        didSet {
-            self.reloadTableView()
-        }
-    }
-    var forecastList: [[String:String]]?
-    var oneDayForecast: [ForecastListDetail]?
-    var fiveDayForecast: [ForecastListDetail]?
+    var viewModel: WeatherInfoViewModel?
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,116 +40,25 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate {
         self.forecastTableView.register(UINib(nibName: "OneDayForecastTableViewCell", bundle: nil), forCellReuseIdentifier: forecastCellID)
         self.forecastTableView.register(UINib(nibName: "FiveDaysForecastTableViewCell", bundle: nil), forCellReuseIdentifier: tableViewCellID)
         self.forecastCollectionView.register(UINib(nibName: "CustomForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: collectionViewCellID)
-        self.update()
     }
     
-    func update() {
-        self.handleForecast()
-        self.handleCurrentWeather()
-        self.saveWeather()
-        self.reloadTableView()                
+    // MARK: - LocationDelegate
+    
+    func updateWeatherObject(_ weatherObject: WeatherObject) {
+        self.weatherObject = weatherObject
     }
     
-    func saveWeather() {
-        if let currentWeather = self.currentWeather, let forecast = self.forecast {
-            let weatherObject = WeatherObject(weather: currentWeather, forecast: forecast)
-            do {
-                self.searchedHistory = try Disk.retrieve("SearchedCities", from: .caches, as: [String:WeatherObject].self)
-                if var searchedHistory = self.searchedHistory, let name = currentWeather.name {
-                    if searchedHistory.count < 20 {
-                        searchedHistory[name] = weatherObject
-                        try Disk.save(searchedHistory, to: .caches, as: "SearchedCities")
-                    }
-                } else {
-                    self.searchedHistory = [String:WeatherObject]()
-                    self.searchedHistory?[currentWeather.name!]! = weatherObject
-                    try Disk.save(self.searchedHistory, to: .caches, as: "SearchedCities")
-                }
-            } catch {
-                do {
-                    self.searchedHistory = [String:WeatherObject]()
-                    if var searchHistory = self.searchedHistory, let name = currentWeather.name {
-                        searchHistory[name] = weatherObject
-                        self.searchedHistory = searchHistory
-                        try Disk.save(self.searchedHistory, to: .caches, as: "SearchedCities")
-                    }
-                } catch {
-                    print(error)
-                }
-                print(error)
-            }
-        }
-    }
+    // MARK: - ViewModelDelegate
     
-    func updateWeather(_ weather: CurrentWeather) {
-        self.currentWeather = weather
-        self.update()
-    }
-    
-    func updateForecast(_ forecast: Forecast) {
-        self.forecast = forecast
-        self.update()
-    }
-    
-    func dictForWeather() {
-        if let currentWeather = self.currentWeather {
-            tableData["Description"] = currentWeather.weather?[0].description
-            tableData["Sunrise"] = currentWeather.sys?.sunrise?.toUTC()
-            tableData["Sunset"] = currentWeather.sys?.sunset?.toUTC()
-            tableData["Humidity"] = currentWeather.main?.humidity?.toString().percent()
-            tableData["Wind"] = currentWeather.wind?.speed?.toString().windSpeed()
-        }
-        tabelTitles = Array(tableData.keys).sorted()
-        
-        self.reloadTableView()
-    }
-    
-    func dictForForecast() {
-        self.reloadTableView()
-    }
-    
-    func handleCurrentWeather() {
-        if let currentWeather = self.currentWeather {
-            DispatchQueue.main.async {
-                self.temperatureLabel.text = currentWeather.main?.temperature?.toString().celcius()
-                self.descriptionLabel.text = currentWeather.weather?[0].main
-                self.cityLabel.text = currentWeather.name
-            }
-        }
-        self.dictForWeather()
-    }
-    
-    func handleForecast() {
-        if let forecast = self.forecast, let forecastList = forecast.list {
-            self.oneDayForecast = [ForecastListDetail]()
-            self.fiveDayForecast = [ForecastListDetail]()
-            for forecasItem in forecastList {
-                let desiredDate = Date(timeIntervalSince1970: Double(forecasItem.dataTime!))
-                if let diff = Calendar.current.dateComponents([.hour], from: Date(), to: desiredDate).hour, diff < 24 {
-                    oneDayForecast?.append(forecasItem)
-                }
-                if let diff = Calendar.current.dateComponents([.hour], from: Date(), to: desiredDate).hour, diff > 24 {
-                    fiveDayForecast?.append(forecasItem)
-                }
-            }
-        }
-        
-        let filteredArr = fiveDayForecast?.enumerated().compactMap { index, element in index % 8 != 7 ? nil : element }
-        if let filteredArr = filteredArr {
-            for item in filteredArr {
-                print(Date(timeIntervalSince1970: Double(item.dataTime!)))
-            }
-            self.fiveDayForecast = filteredArr
-            self.dictForForecast()
-        }
-    }
-    
-    func reloadTableView() {
+    func updateUI() {
         DispatchQueue.main.async {
+            self.cityLabel.text = self.viewModel?.cityLabel
+            self.temperatureLabel.text = self.viewModel?.temperatureLabel
+            self.descriptionLabel.text = self.viewModel?.descriptionLabel
             self.forecastCollectionView.reloadData()
             self.forecastTableView.reloadData()
         }
-    }
+    }    
 }
 
 extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
@@ -184,7 +87,7 @@ extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
                 if cell == nil {
                     cell = OneDayForecastTableViewCell(style: .default, reuseIdentifier: forecastCellID)
                 }
-                if let fiveDayForecast = self.fiveDayForecast {
+                if let fiveDayForecast = self.viewModel?.fiveDayForecast {
                     cell?.forecastDetail = fiveDayForecast
                 }
                 return cell!
@@ -194,9 +97,11 @@ extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
                 if cell == nil {
                     cell = FiveDaysForecastTableViewCell(style: .subtitle, reuseIdentifier: tableViewCellID)
                 }
-                if !tableData.isEmpty && !tabelTitles.isEmpty {
-                    cell?.tableData = tableData
-                    cell?.tableTitles = tabelTitles
+                if let wm = self.viewModel {
+                    if !wm.tableData.isEmpty && !wm.tabelTitles.isEmpty {
+                        cell?.tableData = wm.tableData
+                        cell?.tableTitles = wm.tabelTitles
+                    }
                 }
                 
                 return cell!
@@ -211,7 +116,7 @@ extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
 extension WeatherInfoContainerVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let forecastList = self.oneDayForecast {
+        if let forecastList = self.viewModel?.oneDayForecast {
             return forecastList.count
         } else {
             return 0
@@ -220,7 +125,7 @@ extension WeatherInfoContainerVC: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.forecastCollectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellID, for: indexPath) as! CustomForecastCollectionViewCell
-        if let forecastList = self.oneDayForecast {
+        if let forecastList = self.viewModel?.oneDayForecast {
             cell.timeLabel?.text = indexPath.row == 0 ? "Now" : forecastList[indexPath.row].dataTime?.toUTC()
             cell.temperature?.text = forecastList[indexPath.row].forecastMain?.temperature?.toString().celcius()
         }

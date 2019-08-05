@@ -89,7 +89,7 @@
             </objects>
             <point key="canvasLocation" x="1337.68115942029" y="595.3125"/>
         </scene>
-        <!--History-->
+        <!--HistoryVC-->
         <scene sceneID="exN-zP-Ifd">
             <objects>
                 <viewController id="pwQ-X2-PV0" customClass="HistoryVC" customModule="Forecaster" customModuleProvider="target" sceneMemberID="viewController">
@@ -102,7 +102,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g8z-Uh-QgQ">
-                                <rect key="frame" x="0.0" y="100" width="414" height="713"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCellID" textLabel="5rh-kR-urE" detailTextLabel="jTx-FU-7Pj" style="IBUITableViewCellStyleSubtitle" id="TZD-pb-q9m">
@@ -136,11 +136,11 @@
                                 </connections>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Jqd-6V-Iho">
-                                <rect key="frame" x="0.0" y="44" width="348" height="56"/>
+                                <rect key="frame" x="0.0" y="88" width="348" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVD-YM-1W5">
-                                <rect key="frame" x="356" y="55.5" width="50" height="33"/>
+                                <rect key="frame" x="356" y="99.5" width="50" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Delete"/>
                                 <connections>
@@ -161,16 +161,53 @@
                             <constraint firstItem="RVD-YM-1W5" firstAttribute="centerY" secondItem="Jqd-6V-Iho" secondAttribute="centerY" id="zwe-2N-qyI"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="History" image="history" id="xLO-za-LwO"/>
+                    <navigationItem key="navigationItem" id="CIe-lB-0OO"/>
                     <connections>
                         <outlet property="deleteCacheButton" destination="RVD-YM-1W5" id="Mhs-fS-oDt"/>
                         <outlet property="historySearchBar" destination="Jqd-6V-Iho" id="RyQ-1j-wmk"/>
                         <outlet property="historyTableView" destination="g8z-Uh-QgQ" id="P2A-lM-asd"/>
+                        <segue destination="Q9i-nk-hoZ" kind="show" identifier="historyDetail" id="2B1-3R-GfW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JeW-U1-ooy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1382.608695652174" y="1275"/>
+            <point key="canvasLocation" x="2292.753623188406" y="1275"/>
+        </scene>
+        <!--History DetailVC-->
+        <scene sceneID="pDc-Bd-Z5T">
+            <objects>
+                <viewController id="Q9i-nk-hoZ" customClass="HistoryDetailVC" customModule="Forecaster" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1yZ-ID-JRZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="gRa-Qc-cLo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9ET-7E-BUO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ACv-Dn-Xaz">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <connections>
+                                    <segue destination="1Tm-qf-eL6" kind="embed" identifier="historyWeatherInfo" id="eiC-2D-pWe"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ACv-Dn-Xaz" firstAttribute="leading" secondItem="9ET-7E-BUO" secondAttribute="leading" id="0yZ-JI-l5U"/>
+                            <constraint firstAttribute="trailing" secondItem="ACv-Dn-Xaz" secondAttribute="trailing" id="2r9-pq-ycl"/>
+                            <constraint firstItem="ACv-Dn-Xaz" firstAttribute="top" secondItem="1yZ-ID-JRZ" secondAttribute="bottom" id="KUB-zN-Av2"/>
+                            <constraint firstItem="ACv-Dn-Xaz" firstAttribute="top" secondItem="1yZ-ID-JRZ" secondAttribute="bottom" id="O4p-8X-s92"/>
+                            <constraint firstItem="ACv-Dn-Xaz" firstAttribute="leading" secondItem="9ET-7E-BUO" secondAttribute="leading" id="SGk-qe-VuU"/>
+                            <constraint firstItem="gRa-Qc-cLo" firstAttribute="top" secondItem="ACv-Dn-Xaz" secondAttribute="bottom" id="Wcs-wY-Xtk"/>
+                            <constraint firstItem="gRa-Qc-cLo" firstAttribute="top" secondItem="ACv-Dn-Xaz" secondAttribute="bottom" id="Z59-zl-I0U"/>
+                            <constraint firstAttribute="trailing" secondItem="ACv-Dn-Xaz" secondAttribute="trailing" id="hYY-yS-ZTe"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e7X-d2-5mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3117.3913043478265" y="1275"/>
         </scene>
         <!--Text Based WeatherVC-->
         <scene sceneID="tne-QT-ifu">
@@ -337,7 +374,7 @@
                         <segue destination="B3s-Ur-lnX" kind="relationship" relationship="viewControllers" id="9xK-B7-tUn"/>
                         <segue destination="vQf-fy-4Rr" kind="relationship" relationship="viewControllers" id="0It-3n-R7w"/>
                         <segue destination="Q7E-GH-nM7" kind="relationship" relationship="viewControllers" id="aeN-25-VVk"/>
-                        <segue destination="pwQ-X2-PV0" kind="relationship" relationship="viewControllers" id="RTs-WW-Q9t"/>
+                        <segue destination="1Qq-SX-fek" kind="relationship" relationship="viewControllers" id="RTs-WW-Q9t"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3v6-qY-9ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -515,6 +552,25 @@
             </objects>
             <point key="canvasLocation" x="3923" y="-90"/>
         </scene>
+        <!--History-->
+        <scene sceneID="0PX-oq-AHS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Qq-SX-fek" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="history" id="xLO-za-LwO"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iEq-q4-egA">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pwQ-X2-PV0" kind="relationship" relationship="rootViewController" id="k7v-6z-y2d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OM5-7K-nvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1382.608695652174" y="1275"/>
+        </scene>
     </scenes>
     <resources>
         <image name="currentLocation" width="24" height="24"/>
@@ -524,6 +580,6 @@
         <image name="sunny" width="1280" height="847"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iG5-mW-oqx"/>
+        <segue reference="eiC-2D-pWe"/>
     </inferredMetricsTieBreakers>
 </document>

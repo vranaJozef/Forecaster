@@ -11,8 +11,7 @@ import Disk
 
 class TextBasedWeatherDetailVC: UIViewController {
     
-    var currentWeather: CurrentWeather?
-    var forecast: Forecast?
+    var weatherObject: WeatherObject?
     var searchedHistory: [String:String]?
     let cellID = "textBasedCurrentWeatherCellID"
     
@@ -25,8 +24,9 @@ class TextBasedWeatherDetailVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchWeatherInfo" {
             let vc = segue.destination as! WeatherInfoContainerVC
-            vc.currentWeather = self.currentWeather
-            vc.forecast = self.forecast
+            if let wo = self.weatherObject {
+                vc.weatherObject = wo
+            }
         }
     }
 }
