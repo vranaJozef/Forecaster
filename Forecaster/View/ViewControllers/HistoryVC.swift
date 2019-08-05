@@ -13,8 +13,9 @@ class HistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     
     @IBOutlet weak var historySearchBar: UISearchBar!
     @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var deleteCacheButton: UIButton!
     let cellID = "historyCellID"
-    var searchHistory: [String:String]?
+    var searchHistory: [String:WeatherObject]?
     var cities: [String]?
     var countries: [String]?
     var filteredCities: [String]?
@@ -30,11 +31,32 @@ class HistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         super.viewWillAppear(animated)
         
         do {
-            self.searchHistory = try Disk.retrieve("SearchedCities", from: .caches, as: [String:String].self)
+            self.searchHistory = try Disk.retrieve("SearchedCities", from: .caches, as: [String:WeatherObject].self)
         } catch {
             print(error)
         }
+        if self.searchHistory != nil {
+            self.updateButton(true)
+        }
+        self.historyTableView.tableFooterView = UIView(frame: .zero)
         self.reloadTable()
+    }
+    
+    @IBAction func onDeleteCache(_ sender: UIButton) {
+        do {
+            try Disk.clear(.caches)
+            self.cities = nil
+            self.countries = nil
+            self.searchHistory = nil
+            self.reloadTable()
+            self.updateButton(false)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateButton(_ isEnabled: Bool) {
+        self.deleteCacheButton.isEnabled = isEnabled
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -54,7 +76,7 @@ class HistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                         self.filteredHistory = [String:String]()
                         for filteredName in filteredCities {
                             if let country = searchHistory[filteredName] {
-                                self.filteredHistory![filteredName] = country
+                                self.filteredHistory![filteredName] = country.currentWeather?.sys?.country
                             } else {
                                 self.filteredHistory![filteredName] = ""
                             }
@@ -83,7 +105,9 @@ class HistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                 self.countries = [String]()
                 for (city, country) in searchHistory {
                     cities?.append(city)
-                    countries?.append(country)
+                    if let country = country.currentWeather?.sys?.country {
+                        countries?.append(country)
+                    }
                 }
             }
         }

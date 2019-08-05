@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-protocol ContentDelegate {
+protocol LocationDelegate {
     func updateWeather(_ weather: CurrentWeather)
     func updateForecast(_ forecast: Forecast)
 }
@@ -22,11 +22,9 @@ class LocationVC: UIViewController {
     var tabelTitles = [String]()
     var currentWeather: CurrentWeather?
     var forecast: Forecast?
-    var forecastWeather: [ForecastListDetail]?
-    var delegate: ContentDelegate?
-    var forecastList: [[String:String]]?
-    var oneDayForecast: [ForecastListDetail]?
-    var fiveDayForecast: [ForecastListDetail]?    
+    var delegate: LocationDelegate?
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,28 +36,29 @@ class LocationVC: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
-            
-            guard let location = self.locationManager.location else { return }
-            wm.getForecastByCoordinates(location.coordinate) { (forecast, error) in
-                if let forecast = forecast {
-                    self.forecast = forecast
-                    self.forecastWeather = [ForecastListDetail]()
-                    for item in forecast.list! {
-                        self.forecastWeather?.append(item)
-                    }
-                    if let fiveDayForecast = self.forecast {
-                        self.delegate?.updateForecast(fiveDayForecast)
-                    }
-                }
-                self.wm.getWeatherByCoordinates(location.coordinate) { (weather, error) in
-                    self.forecastList = nil
-                    if let weather = weather {                        
-                        self.delegate?.updateWeather(weather)
-                    }
+        }
+        
+        self.downloadDetails()
+    }
+    
+    func downloadDetails(){
+        guard let location = self.locationManager.location else { return }
+        wm.getFiveDaysForecastByCoordinates(location.coordinate) { (forecast, error) in
+            if let forecast = forecast {
+                self.forecast = forecast
+                if let fiveDayForecast = self.forecast {
+                    self.delegate?.updateForecast(fiveDayForecast)
                 }
             }
-        }
+            self.wm.getWeatherByCoordinates(location.coordinate) { (weather, error) in
+                if let weather = weather {
+                    self.delegate?.updateWeather(weather)
+                }
+            }
+        }                       
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "currentLocationWeatherInfo" {

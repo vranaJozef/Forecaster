@@ -9,15 +9,16 @@
 import UIKit
 import MapKit
 
-class MapBasedWeatherVC: UIViewController, MKMapViewDelegate {
+class MapBasedWeatherVC: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     var mapPin: MapPin?
     var weather: CurrentWeather?
-    var forecastWeather: [ForecastListDetail]?
     var forecast: Forecast?
     let wm = WeatherManager()
     var locationManager = CLLocationManager()
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,8 @@ class MapBasedWeatherVC: UIViewController, MKMapViewDelegate {
         longPressRecogniser.minimumPressDuration = 0.4
         self.mapView.addGestureRecognizer(longPressRecogniser)
     }
+    
+    // MARK: - Actions
     
     @objc func handleLongPress(_ gestureRecognizer : UIGestureRecognizer){
         if gestureRecognizer.state != .began { return }
@@ -50,28 +53,24 @@ class MapBasedWeatherVC: UIViewController, MKMapViewDelegate {
             if let weather = weather {
                 self.weather = weather
             }
-            self.wm.getForecastByCoordinates(touchMapCoordinate) { (forecast, error) in
+            self.wm.getFiveDaysForecastByCoordinates(touchMapCoordinate) { (forecast, error) in
                 if let forecast = forecast {
                     self.forecast = forecast
-                    self.forecastWeather = [ForecastListDetail]()
-                    for item in forecast.list! {
-                        self.forecastWeather?.append(item)
-                    }
                 }
             }
         }
     }
-        
+    
+    // MARK: - Private
+    
     func centerMapOnUserLocation() {
         guard let coordinate = locationManager.location?.coordinate else {return}
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        self.centerMapOnUserLocation()
-    }
-    
+    // MARK: - Navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "currentWeather") {
             let vc = segue.destination as! MapBasedWeatherResultVC
@@ -91,5 +90,12 @@ class MapBasedWeatherVC: UIViewController, MKMapViewDelegate {
         } else {
             return true
         }
+    }
+}
+
+extension MapBasedWeatherVC: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        self.centerMapOnUserLocation()
     }
 }

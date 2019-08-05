@@ -17,31 +17,10 @@ class TextBasedWeatherDetailVC: UIViewController {
     let cellID = "textBasedCurrentWeatherCellID"
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let currentWeather = self.currentWeather {
-            do {
-                self.searchedHistory = try Disk.retrieve("SearchedCities", from: .caches, as: [String:String].self)
-                if var searchedHistory = self.searchedHistory {
-                    searchedHistory[currentWeather.name!] = currentWeather.sys?.country!
-                    try Disk.save(searchedHistory, to: .caches, as: "SearchedCities")
-                } else {
-                    self.searchedHistory = [String:String]()
-                    self.searchedHistory![currentWeather.name!] = currentWeather.sys?.country!
-                    try Disk.save(self.searchedHistory, to: .caches, as: "SearchedCities")
-                }
-            } catch {
-                self.searchedHistory = [String:String]()
-                self.searchedHistory![currentWeather.name!] = currentWeather.sys?.country!
-                do {
-                    try Disk.save(self.searchedHistory, to: .caches, as: "SearchedCities")
-                } catch {
-                    print(error.localizedDescription)
-                }
-                print(error.localizedDescription)
-            }
-        }
+        super.viewDidLoad()                
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchWeatherInfo" {

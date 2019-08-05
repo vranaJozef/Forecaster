@@ -21,7 +21,7 @@ class RequestBuilder {
         return resource
     }
     
-    class func getForecastForCity(_ city: String) -> Resource<Forecast, APIError> {
+    class func getFiveDaysForecastForCity(_ city: String) -> Resource<Forecast, APIError> {
         var resource = Resource<Forecast, APIError>(jsonDecoder: JSONDecoder(), path: "forecast")
         resource.method = .get
         let queryItems = ["q":city,
@@ -42,7 +42,7 @@ class RequestBuilder {
         return resource
     }
     
-    class func getForecastByCoordinates(_ coordinates: CLLocationCoordinate2D) -> Resource<Forecast, APIError> {
+    class func getFiveDaysForecastByCoordinates(_ coordinates: CLLocationCoordinate2D) -> Resource<Forecast, APIError> {
         var resource = Resource<Forecast, APIError>(jsonDecoder: JSONDecoder(), path: "forecast")
         resource.method = .get
         let queryItems = ["lat":String(coordinates.latitude),

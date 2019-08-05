@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JzM-20-2L7">
-                        <rect key="frame" x="0.0" y="0.0" width="315" height="86"/>
+                        <rect key="frame" x="0.0" y="0.0" width="315" height="92"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yj-Iy-jxP">
-                        <rect key="frame" x="0.0" y="106" width="315" height="86"/>
+                        <rect key="frame" x="0.0" y="100" width="315" height="92"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                 <constraint firstItem="5yj-Iy-jxP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="bMf-CR-UEB"/>
                 <constraint firstItem="JzM-20-2L7" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ig8-7n-URP"/>
                 <constraint firstItem="JzM-20-2L7" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="qbT-OK-lhm"/>
-                <constraint firstItem="5yj-Iy-jxP" firstAttribute="top" secondItem="JzM-20-2L7" secondAttribute="bottom" constant="20" id="vTb-yc-GGf"/>
+                <constraint firstItem="5yj-Iy-jxP" firstAttribute="top" secondItem="JzM-20-2L7" secondAttribute="bottom" constant="8" id="vTb-yc-GGf"/>
                 <constraint firstItem="JzM-20-2L7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yaB-kg-IWx"/>
             </constraints>
             <size key="customSize" width="315" height="192"/>

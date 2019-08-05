@@ -14,12 +14,16 @@ class MapBasedWeatherResultVC: UIViewController {
     var forecast: Forecast?
     @IBOutlet weak var locationImage: UIImageView!
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.updateGoogleStaticMapsImage()
     }
-    
+        
+    // MARK: - Update UI
+
     func updateGoogleStaticMapsImage() {
         var mapUrl = ""
         if let lat = self.currentWeather?.coordinates?.latitude, let lon = self.currentWeather?.coordinates?.lonngtitude {
@@ -29,11 +33,13 @@ class MapBasedWeatherResultVC: UIViewController {
         self.locationImage.imageFromServerURL(mapUrl, placeHolder: UIImage(named: "palceholder"))
     }
     
+    // MARK: - Navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mapWeatherInfo" {
             let detailVC = segue.destination as! WeatherInfoContainerVC
             detailVC.currentWeather = currentWeather
-            detailVC.forecast = forecast
+            detailVC.forecast = forecast            
         }
     }
 }

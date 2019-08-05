@@ -20,33 +20,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ7-Bf-XMd">
-                        <rect key="frame" x="8" y="0.0" width="42" height="157.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rys-ZS-0nQ">
-                        <rect key="frame" x="324" y="0.0" width="42" height="157.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="8" y="0.0" width="37.5" height="157.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Z0-g2-uVM">
-                        <rect key="frame" x="274" y="0.0" width="42" height="157.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="328.5" y="0.0" width="37.5" height="157.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rys-ZS-0nQ">
+                        <rect key="frame" x="283" y="0.0" width="37.5" height="157.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="3Z0-g2-uVM" firstAttribute="leading" secondItem="rys-ZS-0nQ" secondAttribute="trailing" constant="8" id="4XR-es-OvE"/>
                     <constraint firstItem="3Z0-g2-uVM" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="AVX-X8-SJV"/>
                     <constraint firstItem="3Z0-g2-uVM" firstAttribute="centerY" secondItem="rys-ZS-0nQ" secondAttribute="centerY" id="Bms-Ll-Hsl"/>
-                    <constraint firstAttribute="trailing" secondItem="rys-ZS-0nQ" secondAttribute="trailing" constant="8" id="Hh7-hX-sLC"/>
                     <constraint firstItem="rys-ZS-0nQ" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="Mmg-8A-2AY"/>
                     <constraint firstItem="rys-ZS-0nQ" firstAttribute="centerY" secondItem="ZJ7-Bf-XMd" secondAttribute="centerY" id="UyN-e8-LVM"/>
                     <constraint firstItem="ZJ7-Bf-XMd" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="dYr-tF-FHp"/>
-                    <constraint firstItem="rys-ZS-0nQ" firstAttribute="leading" secondItem="3Z0-g2-uVM" secondAttribute="trailing" constant="8" id="gOI-3I-22X"/>
+                    <constraint firstAttribute="trailing" secondItem="3Z0-g2-uVM" secondAttribute="trailing" constant="8" id="pZB-Td-9mg"/>
                     <constraint firstItem="ZJ7-Bf-XMd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="r74-A1-z9g"/>
                     <constraint firstItem="ZJ7-Bf-XMd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="sdY-pM-uM9"/>
                 </constraints>

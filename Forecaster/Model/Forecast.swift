@@ -8,19 +8,30 @@
 
 import Foundation
 
-struct Forecast: Decodable {
+struct Forecast: Codable {
     
     var list: [ForecastListDetail]?
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(list, forKey: .list)
+    }
     
     enum CodingKeys: String, CodingKey {
         case list = "list"
     }
 }
 
-struct ForecastListDetail: Decodable {
+struct ForecastListDetail: Codable {
     
     var dataTime: Int?
     var forecastMain: ForecastMainWeather?
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(dataTime, forKey: .dataTime)
+        try container.encode(forecastMain, forKey: .forecastMain)
+    }
     
     enum CodingKeys: String, CodingKey {
         case dataTime = "dt"
@@ -28,11 +39,18 @@ struct ForecastListDetail: Decodable {
     }
 }
 
-struct ForecastMainWeather: Decodable {
+struct ForecastMainWeather: Codable {
     
     var temperature: Double?    
     var minTemperature: Double?
     var maxTemperature: Double?
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(temperature, forKey: .temperature)
+        try container.encode(minTemperature, forKey: .minTemperature)
+        try container.encode(maxTemperature, forKey: .maxTemperature)
+    }
     
     enum CodingKeys: String, CodingKey {
         case temperature = "temp"

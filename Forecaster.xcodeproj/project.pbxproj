@@ -48,6 +48,7 @@
 		AC1418AF22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418AD22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift */; };
 		AC1418B022F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418AE22F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib */; };
 		AC1418B322F7144E002758DD /* WeatherInfoContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418B222F7144E002758DD /* WeatherInfoContainerVC.swift */; };
+		AC51061822F82E4700F6B2C2 /* WeatherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51061722F82E4700F6B2C2 /* WeatherObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		AC1418AD22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFiveDaysForecastTableViewCell.swift; sourceTree = "<group>"; };
 		AC1418AE22F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFiveDaysForecastTableViewCell.xib; sourceTree = "<group>"; };
 		AC1418B222F7144E002758DD /* WeatherInfoContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoContainerVC.swift; sourceTree = "<group>"; };
+		AC51061722F82E4700F6B2C2 /* WeatherObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,9 +176,9 @@
 		AC14187122F30DE0002758DD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				AC14188E22F5526A002758DD /* String+Utils.swift */,
 				AC14188322F45530002758DD /* Double+Utils.swift */,
 				AC14189222F6A5C0002758DD /* Int+Utils.swift */,
+				AC14188E22F5526A002758DD /* String+Utils.swift */,
 				AC14188122F43238002758DD /* UIImageView+Utils.swift */,
 				AC14186D22F2E947002758DD /* URL+Utils.swift */,
 			);
@@ -189,6 +191,7 @@
 				AC14186F22F2E975002758DD /* CurrentWeather.swift */,
 				AC14187322F313E4002758DD /* Forecast.swift */,
 				AC14187D22F415B9002758DD /* MapPin.swift */,
+				AC51061722F82E4700F6B2C2 /* WeatherObject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,7 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				AC1418A322F6F923002758DD /* OneDayForecast */,
-				AC1418B122F705A6002758DD /* MultipleDaysForecast */,
+				AC1418B122F705A6002758DD /* FiveDaysForecast */,
 				AC14189422F6CD90002758DD /* CustomForecastCollectionViewCell.swift */,
 				AC14189522F6CD90002758DD /* CustomForecastCollectionViewCell.xib */,
 			);
@@ -207,12 +210,12 @@
 		AC14189922F6CDBA002758DD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				AC14187522F408DB002758DD /* TextBasedWeatherVC.swift */,
-				AC14188A22F4C6A9002758DD /* TextBasedWeatherDetailVC.swift */,
+				AC14188C22F4D015002758DD /* HistoryVC.swift */,
+				AC14187B22F40FF1002758DD /* LocationVC.swift */,
 				AC14187722F40A0A002758DD /* MapBasedWeatherVC.swift */,
 				AC14187F22F42819002758DD /* MapBasedWeatherResultVC.swift */,
-				AC14187B22F40FF1002758DD /* LocationVC.swift */,
-				AC14188C22F4D015002758DD /* HistoryVC.swift */,
+				AC14187522F408DB002758DD /* TextBasedWeatherVC.swift */,
+				AC14188A22F4C6A9002758DD /* TextBasedWeatherDetailVC.swift */,
 				AC1418B222F7144E002758DD /* WeatherInfoContainerVC.swift */,
 			);
 			path = ViewControllers;
@@ -238,7 +241,7 @@
 			path = OneDayForecast;
 			sourceTree = "<group>";
 		};
-		AC1418B122F705A6002758DD /* MultipleDaysForecast */ = {
+		AC1418B122F705A6002758DD /* FiveDaysForecast */ = {
 			isa = PBXGroup;
 			children = (
 				AC1418A422F6F985002758DD /* FiveDaysForecastTableViewCell.swift */,
@@ -246,7 +249,7 @@
 				AC1418AD22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift */,
 				AC1418AE22F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib */,
 			);
-			path = MultipleDaysForecast;
+			path = FiveDaysForecast;
 			sourceTree = "<group>";
 		};
 		AC1418B422F755A5002758DD /* Managers */ = {
@@ -411,6 +414,7 @@
 				AC14189D22F6E90C002758DD /* OneDayForecastTableViewCell.swift in Sources */,
 				AC1418B322F7144E002758DD /* WeatherInfoContainerVC.swift in Sources */,
 				AC14186322F2E85E002758DD /* APIError.swift in Sources */,
+				AC51061822F82E4700F6B2C2 /* WeatherObject.swift in Sources */,
 				AC14186922F2E85E002758DD /* Path.swift in Sources */,
 				AC14187E22F415B9002758DD /* MapPin.swift in Sources */,
 				AC14188D22F4D015002758DD /* HistoryVC.swift in Sources */,

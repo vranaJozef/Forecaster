@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 import CoreLocation
+import Disk
 
-class WeatherInfoContainerVC: UIViewController, ContentDelegate {
+class WeatherInfoContainerVC: UIViewController, LocationDelegate {
     
     @IBOutlet weak var forecastTableView: UITableView!
     @IBOutlet weak var forecastCollectionView: UICollectionView!
@@ -21,19 +22,20 @@ class WeatherInfoContainerVC: UIViewController, ContentDelegate {
     let forecastCellID = "locationForecastCellID"
     let collectionViewCellID = "forecastCollectionViewCellID"
     let wm = WeatherManager()
+    var searchedHistory: [String:WeatherObject]?
     var currentWeather: CurrentWeather? {
         didSet {
             self.reloadTableView()
         }
     }
     var tableData = [String: String]()
+    var fiveDaysForecastTableData = [String: String]()
     var tabelTitles = [String]()
     var forecast: Forecast? {
         didSet {
             self.reloadTableView()
         }
     }
-    var forecastWeather: [ForecastListDetail]?
     var forecastList: [[String:String]]?
     var oneDayForecast: [ForecastListDetail]?
     var fiveDayForecast: [ForecastListDetail]?
@@ -48,27 +50,41 @@ class WeatherInfoContainerVC: UIViewController, ContentDelegate {
     }
     
     func update() {
-        if let latitude = currentWeather?.coordinates?.latitude, let longtitude = currentWeather?.coordinates?.lonngtitude {
-            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
-            wm.getForecastByCoordinates(coordinates) { (forecast, error) in
-                if let forecast = forecast {
-                    self.forecast = forecast
-                    self.forecastWeather = [ForecastListDetail]()
-                    for item in forecast.list! {
-                        self.forecastWeather?.append(item)
+        self.handleForecast()
+        self.handleCurrentWeather()
+        self.saveWeather()
+        self.reloadTableView()                
+    }
+    
+    func saveWeather() {
+        if let currentWeather = self.currentWeather, let forecast = self.forecast {
+            let weatherObject = WeatherObject(weather: currentWeather, forecast: forecast)
+            do {
+                self.searchedHistory = try Disk.retrieve("SearchedCities", from: .caches, as: [String:WeatherObject].self)
+                if var searchedHistory = self.searchedHistory, let name = currentWeather.name {
+                    if searchedHistory.count < 20 {
+                        searchedHistory[name] = weatherObject
+                        try Disk.save(searchedHistory, to: .caches, as: "SearchedCities")
                     }
-                    self.handleForecast()
+                } else {
+                    self.searchedHistory = [String:WeatherObject]()
+                    self.searchedHistory?[currentWeather.name!]! = weatherObject
+                    try Disk.save(self.searchedHistory, to: .caches, as: "SearchedCities")
                 }
-                self.wm.getWeatherByCoordinates(coordinates) { (weather, error) in
-                    self.forecastList = nil
-                    if let weather = weather {
-                        self.currentWeather = weather
-                        self.handleCurrentWeather()
+            } catch {
+                do {
+                    self.searchedHistory = [String:WeatherObject]()
+                    if var searchHistory = self.searchedHistory, let name = currentWeather.name {
+                        searchHistory[name] = weatherObject
+                        self.searchedHistory = searchHistory
+                        try Disk.save(self.searchedHistory, to: .caches, as: "SearchedCities")
                     }
+                } catch {
+                    print(error)
                 }
+                print(error)
             }
         }
-        self.reloadTableView()
     }
     
     func updateWeather(_ weather: CurrentWeather) {
@@ -95,15 +111,6 @@ class WeatherInfoContainerVC: UIViewController, ContentDelegate {
     }
     
     func dictForForecast() {
-        if let forecastWeather = self.forecastWeather {
-            forecastList = [[String:String]]()
-            for item in forecastWeather {
-                tableData["Time"] = item.dataTime?.toUTC()
-                tableData["Temperature"] = item.forecastMain?.temperature?.toString().celcius()
-                forecastList?.append(tableData)
-            }
-        }
-        
         self.reloadTableView()
     }
     
@@ -119,7 +126,7 @@ class WeatherInfoContainerVC: UIViewController, ContentDelegate {
     }
     
     func handleForecast() {
-        if let forecastList = self.forecastWeather {
+        if let forecast = self.forecast, let forecastList = forecast.list {
             self.oneDayForecast = [ForecastListDetail]()
             self.fiveDayForecast = [ForecastListDetail]()
             for forecasItem in forecastList {
@@ -134,11 +141,13 @@ class WeatherInfoContainerVC: UIViewController, ContentDelegate {
         }
         
         let filteredArr = fiveDayForecast?.enumerated().compactMap { index, element in index % 8 != 7 ? nil : element }
-        for item in filteredArr! {
-            print(Date(timeIntervalSince1970: Double(item.dataTime!)))
+        if let filteredArr = filteredArr {
+            for item in filteredArr {
+                print(Date(timeIntervalSince1970: Double(item.dataTime!)))
+            }
+            self.fiveDayForecast = filteredArr
+            self.dictForForecast()
         }
-        self.fiveDayForecast = filteredArr
-        self.dictForForecast()
     }
     
     func reloadTableView() {

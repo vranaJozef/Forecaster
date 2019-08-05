@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OneDayForecastTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
+class OneDayForecastTableViewCell: UITableViewCell {
     
     @IBOutlet weak var forecastTableView: UITableView!
     var forecastDetail: [ForecastListDetail]? {
@@ -19,32 +19,6 @@ class OneDayForecastTableViewCell: UITableViewCell, UITableViewDataSource, UITab
         }
     }
     let cellID = "oneDayForecastTableViewCellID"
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let forecastDetail = self.forecastDetail {
-            return forecastDetail.count
-        }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = forecastTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomForecastTableviewCell
-        if let forecastDetail = self.forecastDetail {            
-            cell.dayLabel.text = forecastDetail[indexPath.row].dataTime?.dayOfTheWeek()
-            cell.minTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.minTemperature?.toString()
-            cell.maxTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.maxTemperature?.toString()
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,5 +44,34 @@ class OneDayForecastTableViewCell: UITableViewCell, UITableViewDataSource, UITab
         forecastTableView.isScrollEnabled = true
         forecastTableView.register(UINib(nibName: "CustomForecastTableviewCell", bundle: nil), forCellReuseIdentifier: cellID)
         forecastTableView.tableFooterView = UIView(frame: .zero)
+    }
+}
+
+extension OneDayForecastTableViewCell: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let forecastDetail = self.forecastDetail {
+            return forecastDetail.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = forecastTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomForecastTableviewCell
+        if let forecastDetail = self.forecastDetail {
+            cell.dayLabel.text = forecastDetail[indexPath.row].dataTime?.dayOfTheWeek()
+            cell.minTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.minTemperature?.toString()
+            cell.maxTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.maxTemperature?.toString()
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
     }
 }

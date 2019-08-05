@@ -17,7 +17,7 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     let wm = WeatherManager()
     var weather: CurrentWeather?
     var forecast: Forecast?
-    var shouldPerformSegue = false
+    var city = ""
     @IBOutlet weak var cityResultsTableView: UITableView!
     @IBOutlet weak var cityTextField: UITextField!
 
@@ -38,17 +38,26 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
         
     @IBAction func onCurrentWeather(_ sender: UIButton) {
-        wm.getCurrentWeatherForCity(self.cityTextField.text!) { (weather, error) in
+        wm.getCurrentWeatherForCity(self.city) { (weather, error) in
             if let weather = weather {
                 self.weather = weather
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "textBasedCurrentWeather", sender: self)
-                }
             } else {
                 self.handleError()
             }
-        }
+            self.wm.getFiveDaysForecastForCity(self.city, completion: { (forecast, error) in
+                if let forecast = forecast {
+                    self.forecast = forecast
+                } else {
+                    self.handleError()
+                }
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "textBasedCurrentWeather", sender: self)
+                }
+            })
+        } 
     }
+    
+    // MARK: - Update UI
     
     func handleError() {
         DispatchQueue.main.async {
@@ -59,7 +68,7 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
             self.present(ac, animated: true, completion: nil)
         }
     }
-    
+
     func reloadTableView() {
         DispatchQueue.main.async {
             self.cityResultsTableView.reloadData()
@@ -74,6 +83,8 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         self.reloadTableView()
     }
     
+    // MARK: - Textfield delegate
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let city = textField.text {
             self.searchCompleter.queryFragment = city
@@ -81,6 +92,8 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "textBasedCurrentWeather") {
@@ -106,6 +119,7 @@ extension TextBasedWeatherVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.cityTextField.text = self.searchResults?[indexPath.row].title
+        self.city = self.cityTextField.text!
         self.cityResultsTableView.deselectRow(at: indexPath, animated: true)
     }
 }

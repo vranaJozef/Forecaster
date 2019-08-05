@@ -48,9 +48,9 @@ class WeatherManager {
         }
     }
     
-    func getForecastForCity(_ city: String, completion: @escaping ((_ forecast: Forecast?, _ error: WebError<APIError>?) -> Void)) {
+    func getFiveDaysForecastForCity(_ city: String, completion: @escaping ((_ forecast: Forecast?, _ error: WebError<APIError>?) -> Void)) {
         self.flightTask?.cancel()
-        let resource = RequestBuilder.getForecastForCity(city)
+        let resource = RequestBuilder.getFiveDaysForecastForCity(city)
         self.flightTask = client.load(resource: resource) {[weak self] response in
             if let forecast = response.value {
                 completion(forecast, nil)
@@ -72,9 +72,9 @@ class WeatherManager {
         }
     }
     
-    func getForecastByCoordinates(_ coordinates: CLLocationCoordinate2D, completion: @escaping ((_ weather: Forecast?, _ error: WebError<APIError>?) -> Void)) {
+    func getFiveDaysForecastByCoordinates(_ coordinates: CLLocationCoordinate2D, completion: @escaping ((_ weather: Forecast?, _ error: WebError<APIError>?) -> Void)) {
         self.flightTask?.cancel()
-        let resource = RequestBuilder.getForecastByCoordinates(coordinates)
+        let resource = RequestBuilder.getFiveDaysForecastByCoordinates(coordinates)
         self.flightTask = client.load(resource: resource) {[weak self] response in
             if let forecast = response.value {
                 completion(forecast, nil)
@@ -82,5 +82,5 @@ class WeatherManager {
                 completion(nil, error)
             }
         }
-    }
+    }       
 }
