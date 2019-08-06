@@ -7,4 +7,4 @@ Simple app for current weather and forecast.
 <li>History of last 20 places.</li>
 </ul>
 
-Enjoy
+
