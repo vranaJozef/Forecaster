@@ -107,7 +107,7 @@
                                 <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCellID" textLabel="5rh-kR-urE" detailTextLabel="jTx-FU-7Pj" style="IBUITableViewCellStyleSubtitle" id="TZD-pb-q9m">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCellID" textLabel="5rh-kR-urE" detailTextLabel="jTx-FU-7Pj" style="IBUITableViewCellStyleSubtitle" id="TZD-pb-q9m">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TZD-pb-q9m" id="eCM-ej-zr8">
@@ -227,7 +227,7 @@
                                 <rect key="frame" x="20" y="108" width="374" height="45"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="6mc-D1-amf"/>
                                 </connections>
@@ -236,7 +236,7 @@
                                 <rect key="frame" x="0.0" y="153" width="414" height="590"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityCellID" id="n0A-1C-hls">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityCellID" id="n0A-1C-hls">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n0A-1C-hls" id="zs3-Hp-gpG">
@@ -516,11 +516,15 @@
                                     <outlet property="delegate" destination="1Tm-qf-eL6" id="q4M-sh-gPc"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="S24-9j-vcD">
+                                <rect key="frame" x="168.5" y="365.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ch4-05-9cF" firstAttribute="centerX" secondItem="d3q-3p-WQS" secondAttribute="centerX" id="2B0-8c-Qrl"/>
                             <constraint firstItem="seS-zd-UBB" firstAttribute="width" secondItem="d3q-3p-WQS" secondAttribute="width" id="4bh-R9-pgy"/>
+                            <constraint firstItem="S24-9j-vcD" firstAttribute="centerY" secondItem="d3q-3p-WQS" secondAttribute="centerY" id="7V0-iQ-R8I"/>
                             <constraint firstItem="CX5-M2-G0f" firstAttribute="top" secondItem="6cu-6E-Ebw" secondAttribute="bottom" constant="4" id="Cj6-Xy-tSa"/>
                             <constraint firstAttribute="trailing" secondItem="2M0-iV-FUO" secondAttribute="trailing" id="DRt-vE-vD5"/>
                             <constraint firstItem="N9E-e6-O3F" firstAttribute="width" secondItem="d3q-3p-WQS" secondAttribute="width" id="IRp-5G-c8D"/>
@@ -528,6 +532,7 @@
                             <constraint firstItem="6cu-6E-Ebw" firstAttribute="centerX" secondItem="d3q-3p-WQS" secondAttribute="centerX" id="N6j-cL-7ZQ"/>
                             <constraint firstAttribute="bottom" secondItem="seS-zd-UBB" secondAttribute="bottom" id="WZ1-Ym-RJb"/>
                             <constraint firstItem="ch4-05-9cF" firstAttribute="top" secondItem="CX5-M2-G0f" secondAttribute="bottom" constant="4" id="ZGo-gt-ogm"/>
+                            <constraint firstItem="S24-9j-vcD" firstAttribute="centerX" secondItem="d3q-3p-WQS" secondAttribute="centerX" id="b4a-Kw-Mdm"/>
                             <constraint firstItem="N9E-e6-O3F" firstAttribute="top" secondItem="ch4-05-9cF" secondAttribute="bottom" constant="4" id="bRP-23-gmM"/>
                             <constraint firstItem="seS-zd-UBB" firstAttribute="leading" secondItem="d3q-3p-WQS" secondAttribute="leading" id="ba6-OB-hQF"/>
                             <constraint firstAttribute="bottom" secondItem="2M0-iV-FUO" secondAttribute="bottom" id="bmL-wh-JnH"/>
@@ -542,6 +547,7 @@
                     </view>
                     <size key="freeformSize" width="374" height="768"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="S24-9j-vcD" id="Stw-U7-aqF"/>
                         <outlet property="cityLabel" destination="6cu-6E-Ebw" id="Y5f-d8-KdM"/>
                         <outlet property="descriptionLabel" destination="ch4-05-9cF" id="k3T-yA-4mw"/>
                         <outlet property="forecastCollectionView" destination="N9E-e6-O3F" id="hEb-fp-xsD"/>
@@ -580,7 +586,7 @@
         <image name="history" width="15" height="15"/>
         <image name="map" width="15" height="15"/>
         <image name="search" width="15" height="15"/>
-        <image name="sunny" width="1280" height="847"/>
+        <image name="sunny" width="1920" height="1090"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ExB-gS-oey"/>

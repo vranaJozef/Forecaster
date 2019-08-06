@@ -28,8 +28,9 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         self.cityTextField.becomeFirstResponder()
+        self.createToolbar()
         self.searchCompleter.delegate = self
-        self.cityResultsTableView.tableFooterView = UIView(frame: .zero)        
+        self.cityResultsTableView.tableFooterView = UIView(frame: .zero)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,7 +84,7 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     // MARK: - Update UI
     
     func handleError() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async {            
             let ac = UIAlertController.init(title: "Missing location", message:  "Select valid city, please.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: { ( action ) in
                 ac.dismiss(animated: true, completion: nil)
@@ -98,12 +99,32 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - Private
+    
     func reset() {
         self.currentWeather = nil
         self.cityTextField.text = nil
         self.searchCompleter.queryFragment = self.cityTextField.text!
         self.searchResults?.removeAll()
         self.reloadTableView()
+    }
+    
+    func createToolbar(){
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.backgroundColor = UIColor.white
+        toolBar.tintColor = UIColor.init(red: 47/255, green: 171/255, blue: 255/255, alpha: 1)
+        toolBar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(onDone))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        self.cityTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func onDone() {
+        self.cityTextField.resignFirstResponder()
     }
     
     // MARK: - Textfield delegate
@@ -145,6 +166,7 @@ extension TextBasedWeatherVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.cityTextField.resignFirstResponder()
         self.cityTextField.text = self.searchResults?[indexPath.row].title
         self.city = self.cityTextField.text!
         self.cityResultsTableView.deselectRow(at: indexPath, animated: true)

@@ -18,6 +18,7 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var weatherObject: WeatherObject? {
         didSet {
             guard let weatherObject = weatherObject else { return }
@@ -36,10 +37,11 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         self.forecastTableView.register(UINib(nibName: "FiveDaysForecastTableViewCell", bundle: nil), forCellReuseIdentifier: forecastCellID)
         self.forecastTableView.register(UINib(nibName: "CurrentWeatherTableViewCell", bundle: nil), forCellReuseIdentifier: tableViewCellID)
         self.forecastCollectionView.register(UINib(nibName: "OneDayForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: collectionViewCellID)
+        self.activityIndicator.startAnimating()
     }
     
     // MARK: - LocationDelegate
@@ -52,13 +54,14 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
     
     func updateUI() {
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
             self.cityLabel.text = self.viewModel?.cityLabel
             self.temperatureLabel.text = self.viewModel?.temperatureLabel
             self.descriptionLabel.text = self.viewModel?.descriptionLabel
             self.forecastCollectionView.reloadData()
             self.forecastTableView.reloadData()
         }
-    }    
+    }
 }
 
 extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
