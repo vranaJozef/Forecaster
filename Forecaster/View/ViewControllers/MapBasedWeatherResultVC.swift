@@ -46,6 +46,7 @@ class MapBasedWeatherResultVC: UIViewController {
             let detailVC = segue.destination as! WeatherInfoContainerVC
             if let weatherObject = self.weatherObject {
                 detailVC.weatherObject = weatherObject
+                detailVC.pushedFrom = String(describing: type(of: self))
             }
         }
     }

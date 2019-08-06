@@ -57,6 +57,7 @@ class LocationVC: UIViewController, CurrentLocationViewModelDelegate {
         if segue.identifier == "currentLocationWeatherInfo" {
             let vc = segue.destination as! WeatherInfoContainerVC
             vc.weatherObject = self.weatherObject
+            vc.pushedFrom = String(describing: type(of: self))
             self.delegate = vc
         }
     }

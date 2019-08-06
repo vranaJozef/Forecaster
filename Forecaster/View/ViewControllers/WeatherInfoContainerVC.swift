@@ -27,6 +27,7 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
             viewModel?.update()
         }
     }
+    var pushedFrom: String?
     let tableViewCellID = "locationWeatherCellID"
     let forecastCellID = "locationForecastCellID"
     let collectionViewCellID = "forecastCollectionViewCellID"
@@ -42,6 +43,12 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
         self.forecastTableView.register(UINib(nibName: "CurrentWeatherTableViewCell", bundle: nil), forCellReuseIdentifier: tableViewCellID)
         self.forecastCollectionView.register(UINib(nibName: "OneDayForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: collectionViewCellID)
         self.activityIndicator.startAnimating()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.handleNetwork()
     }
     
     // MARK: - LocationDelegate
@@ -60,6 +67,25 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
             self.descriptionLabel.text = self.viewModel?.descriptionLabel
             self.forecastCollectionView.reloadData()
             self.forecastTableView.reloadData()
+        }
+    }
+    
+    // MARK: - Private
+    
+    func handleNetwork() {
+        if let pushedFrom = self.pushedFrom {
+            if !Reachability.isConnectedToNetwork() && pushedFrom != "HistoryDetailVC" {
+                let title = "No internet"
+                let message = "Connect to internet and try again."
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    let ac = UIAlertController.init(title: title, message:  message, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { ( action ) in
+                        ac.dismiss(animated: true, completion: nil)
+                    }))
+                    self.present(ac, animated: true, completion: nil)
+                }
+            }
         }
     }
 }

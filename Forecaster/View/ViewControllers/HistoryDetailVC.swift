@@ -25,6 +25,7 @@ class HistoryDetailVC: UIViewController  {
             let detailVC = segue.destination as! WeatherInfoContainerVC
             if let weather = self.weatherObject {
                 detailVC.weatherObject = weather
+                detailVC.pushedFrom = String(describing: type(of: self))
             }
         }
     }

@@ -33,6 +33,14 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         self.cityResultsTableView.tableFooterView = UIView(frame: .zero)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !Reachability.isConnectedToNetwork() {
+            self.handleInternetConnection()
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.reset()
     }
@@ -80,19 +88,9 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
+
     // MARK: - Update UI
     
-    func handleError() {
-        DispatchQueue.main.async {            
-            let ac = UIAlertController.init(title: "Missing location", message:  "Select valid city, please.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: { ( action ) in
-                ac.dismiss(animated: true, completion: nil)
-            }))
-            self.present(ac, animated: true, completion: nil)
-        }
-    }
-
     func reloadTableView() {
         DispatchQueue.main.async {
             self.cityResultsTableView.reloadData()
@@ -100,6 +98,34 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Private
+    
+    func handleInternetConnection() {
+        let title = "No internet"
+        let message = "Connect to internet and try again."
+        DispatchQueue.main.async {
+            let ac = UIAlertController.init(title: title, message:  message, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { ( action ) in
+                ac.dismiss(animated: true, completion: nil)
+            }))
+            self.present(ac, animated: true, completion: nil)
+        }
+    }
+    
+    func handleError() {
+        if !Reachability.isConnectedToNetwork() {
+            self.handleInternetConnection()
+        } else {
+            let title = "Missing location"
+            let message = "Select valid city, please."
+            DispatchQueue.main.async {
+                let ac = UIAlertController.init(title: title, message:  message, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { ( action ) in
+                    ac.dismiss(animated: true, completion: nil)
+                }))
+                self.present(ac, animated: true, completion: nil)
+            }
+        }
+    }
     
     func reset() {
         self.currentWeather = nil
@@ -146,7 +172,7 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         if (segue.identifier == "textBasedCurrentWeather") {
             let vc = segue.destination as! TextBasedWeatherDetailVC
             if let wo = self.weatherObject {
-                vc.weatherObject = wo
+                vc.weatherObject = wo                
             }
         }
     }

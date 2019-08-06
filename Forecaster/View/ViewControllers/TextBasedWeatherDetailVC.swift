@@ -26,6 +26,7 @@ class TextBasedWeatherDetailVC: UIViewController {
             let vc = segue.destination as! WeatherInfoContainerVC
             if let wo = self.weatherObject {
                 vc.weatherObject = wo
+                vc.pushedFrom = String(describing: type(of: self))
             }
         }
     }

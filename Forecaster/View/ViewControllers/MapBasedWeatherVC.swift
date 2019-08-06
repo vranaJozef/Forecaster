@@ -31,9 +31,17 @@ class MapBasedWeatherVC: UIViewController {
         self.mapView.addGestureRecognizer(longPressRecogniser)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !Reachability.isConnectedToNetwork() {
+            self.handleInternetConnection()
+        }
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+                
         self.reset()
     }
     
@@ -108,6 +116,37 @@ class MapBasedWeatherVC: UIViewController {
         self.mapView.removeAnnotations(self.mapView.annotations)
     }
     
+    func handleInternetConnection() {
+        let title = "No internet"
+        let message = "Connect to internet and try again."
+        DispatchQueue.main.async {
+            let ac = UIAlertController.init(title: title, message:  message, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { ( action ) in
+                ac.dismiss(animated: true, completion: nil)
+            }))
+            self.present(ac, animated: true, completion: nil)
+        }
+    }
+    
+    func handleError() {
+        if !Reachability.isConnectedToNetwork() {
+            self.handleInternetConnection()
+        } else {
+            let title = "Missing location"
+            let message = "Drop the pin on map, please."
+            DispatchQueue.main.async {
+                if (self.currentWeather == nil) {
+                    let ac = UIAlertController.init(title: title, message:  message, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: { ( action ) in
+                        ac.dismiss(animated: true, completion: nil)
+                    }))
+                    self.present(ac, animated: true, completion: nil)
+                    
+                }
+            }
+        }
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -121,11 +160,7 @@ class MapBasedWeatherVC: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if (self.currentWeather == nil) {
-            let ac = UIAlertController.init(title: "Missing location", message: "Drop the pin on map, please", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: { ( action ) in
-                ac.dismiss(animated: true, completion: nil)
-            }))
-            self.present(ac, animated: true, completion: nil)
+            self.handleError()
             return false
         } else {
             return true
