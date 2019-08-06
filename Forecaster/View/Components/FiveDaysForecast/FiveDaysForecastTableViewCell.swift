@@ -9,23 +9,22 @@
 import UIKit
 
 class FiveDaysForecastTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var fiveDaysForecastTableView: UITableView!
-    var tableTitles: [String]?
-    var tableData: [String:String]? {
+    
+    @IBOutlet weak var forecastTableView: UITableView!
+    var forecastDetail: [ForecastListDetail]? {
         didSet {
             DispatchQueue.main.async {
-                self.fiveDaysForecastTableView.reloadData()
+                self.forecastTableView.reloadData()
             }
         }
     }
-    let cellID = "fiveDaysForecastTableViewCellID"
+    let cellID = "FiveDaysForecastTableViewCellID"
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setUpTable()
     }
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: reuseIdentifier)
         setUpTable()
@@ -36,16 +35,16 @@ class FiveDaysForecastTableViewCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(selected, animated: animated)        
     }
     
     func setUpTable() {
-        fiveDaysForecastTableView.delegate = self
-        fiveDaysForecastTableView.dataSource = self
-        fiveDaysForecastTableView.isScrollEnabled = true
-        fiveDaysForecastTableView.frame = self.bounds
-        fiveDaysForecastTableView.register(UINib(nibName: "CustomFiveDaysForecastTableViewCell", bundle: nil), forCellReuseIdentifier: cellID)
-        fiveDaysForecastTableView.tableFooterView = UIView(frame: .zero)
+        forecastTableView.delegate = self
+        forecastTableView.dataSource = self
+        forecastTableView.isScrollEnabled = true
+        forecastTableView.frame = self.bounds
+        forecastTableView.register(UINib(nibName: "CustomFiveDaysForecastTableviewCell", bundle: nil), forCellReuseIdentifier: cellID)
+        forecastTableView.tableFooterView = UIView(frame: .zero)
     }
 }
 
@@ -56,17 +55,18 @@ extension FiveDaysForecastTableViewCell: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let forecastDetail = self.tableData {
+        if let forecastDetail = self.forecastDetail {
             return forecastDetail.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = fiveDaysForecastTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomFiveDaysForecastTableViewCell
-        if let forecastDetail = self.tableData, let titles = self.tableTitles {
-            cell.typeLabel?.text = titles[indexPath.row]
-            cell.typeDetailLabel?.text = forecastDetail[titles[indexPath.row]]
+        let cell = forecastTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomFiveDaysForecastTableviewCell
+        if let forecastDetail = self.forecastDetail {
+            cell.dayLabel.text = forecastDetail[indexPath.row].dataTime?.dayOfTheWeek()
+            cell.minTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.minTemperature?.temperatureToString().celcius()
+            cell.maxTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.maxTemperature?.temperatureToString().celcius()
         }
         
         return cell

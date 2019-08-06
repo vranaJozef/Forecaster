@@ -37,9 +37,9 @@ class WeatherInfoContainerVC: UIViewController, LocationDelegate, ViewModelDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        self.forecastTableView.register(UINib(nibName: "OneDayForecastTableViewCell", bundle: nil), forCellReuseIdentifier: forecastCellID)
-        self.forecastTableView.register(UINib(nibName: "FiveDaysForecastTableViewCell", bundle: nil), forCellReuseIdentifier: tableViewCellID)
-        self.forecastCollectionView.register(UINib(nibName: "CustomForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: collectionViewCellID)
+        self.forecastTableView.register(UINib(nibName: "FiveDaysForecastTableViewCell", bundle: nil), forCellReuseIdentifier: forecastCellID)
+        self.forecastTableView.register(UINib(nibName: "CurrentWeatherTableViewCell", bundle: nil), forCellReuseIdentifier: tableViewCellID)
+        self.forecastCollectionView.register(UINib(nibName: "OneDayForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: collectionViewCellID)
     }
     
     // MARK: - LocationDelegate
@@ -83,9 +83,9 @@ extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.forecastTableView {
             if indexPath.row == 0 {
-                var cell:OneDayForecastTableViewCell? = self.forecastTableView.dequeueReusableCell(withIdentifier: forecastCellID) as? OneDayForecastTableViewCell
+                var cell:FiveDaysForecastTableViewCell? = self.forecastTableView.dequeueReusableCell(withIdentifier: forecastCellID) as? FiveDaysForecastTableViewCell
                 if cell == nil {
-                    cell = OneDayForecastTableViewCell(style: .default, reuseIdentifier: forecastCellID)
+                    cell = FiveDaysForecastTableViewCell(style: .default, reuseIdentifier: forecastCellID)
                 }
                 if let fiveDayForecast = self.viewModel?.fiveDayForecast {
                     cell?.forecastDetail = fiveDayForecast
@@ -93,9 +93,9 @@ extension WeatherInfoContainerVC: UITableViewDataSource, UITableViewDelegate {
                 return cell!
             }
             if indexPath.row == 1 {
-                var cell:FiveDaysForecastTableViewCell? = self.forecastTableView.dequeueReusableCell(withIdentifier: tableViewCellID) as? FiveDaysForecastTableViewCell
+                var cell:CurrentWeatherTableViewCell? = self.forecastTableView.dequeueReusableCell(withIdentifier: tableViewCellID) as? CurrentWeatherTableViewCell
                 if cell == nil {
-                    cell = FiveDaysForecastTableViewCell(style: .subtitle, reuseIdentifier: tableViewCellID)
+                    cell = CurrentWeatherTableViewCell(style: .subtitle, reuseIdentifier: tableViewCellID)
                 }
                 if let wm = self.viewModel {
                     if !wm.tableData.isEmpty && !wm.tabelTitles.isEmpty {
@@ -124,7 +124,7 @@ extension WeatherInfoContainerVC: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.forecastCollectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellID, for: indexPath) as! CustomForecastCollectionViewCell
+        let cell = self.forecastCollectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellID, for: indexPath) as! OneDayForecastCollectionViewCell
         if let forecastList = self.viewModel?.oneDayForecast {
             cell.timeLabel?.text = indexPath.row == 0 ? "Now" : forecastList[indexPath.row].dataTime?.toUTC()
             cell.temperature?.text = forecastList[indexPath.row].forecastMain?.temperature?.temperatureToString().celcius()

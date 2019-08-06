@@ -1,5 +1,5 @@
 //
-//  CustomForecastTableviewCell.swift
+//  CustomCurrentWeatherTableViewCell.swift
 //  Forecaster
 //
 //  Created by Vrana, Jozef on 04/08/2019.
@@ -8,11 +8,10 @@
 
 import UIKit
 
-class CustomForecastTableviewCell: UITableViewCell {
+class CustomCurrentWeatherTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var minTemperatureLabel: UILabel!
-    @IBOutlet weak var maxTemperatureLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var typeDetailLabel: UILabel!
     @IBOutlet var labels: [UILabel]!
     
     override func awakeFromNib() {
@@ -24,8 +23,7 @@ class CustomForecastTableviewCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
+        super.setSelected(selected, animated: animated)    
     }
     
 }

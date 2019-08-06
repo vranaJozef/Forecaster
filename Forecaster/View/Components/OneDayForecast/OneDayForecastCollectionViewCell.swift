@@ -1,5 +1,5 @@
 //
-//  CustomForecastCollectionViewCell.swift
+//  OneDayForecastCollectionViewCell.swift
 //  Forecaster
 //
 //  Created by Vrana, Jozef on 04/08/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomForecastCollectionViewCell: UICollectionViewCell {
+class OneDayForecastCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var timeLabel: UILabel?
     @IBOutlet weak var temperature: UILabel?

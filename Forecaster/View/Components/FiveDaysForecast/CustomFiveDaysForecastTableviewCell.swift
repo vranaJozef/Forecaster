@@ -1,5 +1,5 @@
 //
-//  CustomFiveDaysForecastTableViewCell.swift
+//  CustomFiveDaysForecastTableviewCell.swift
 //  Forecaster
 //
 //  Created by Vrana, Jozef on 04/08/2019.
@@ -8,10 +8,11 @@
 
 import UIKit
 
-class CustomFiveDaysForecastTableViewCell: UITableViewCell {
+class CustomFiveDaysForecastTableviewCell: UITableViewCell {
 
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var typeDetailLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var minTemperatureLabel: UILabel!
+    @IBOutlet weak var maxTemperatureLabel: UILabel!
     @IBOutlet var labels: [UILabel]!
     
     override func awakeFromNib() {
@@ -23,7 +24,8 @@ class CustomFiveDaysForecastTableViewCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)    
+        super.setSelected(selected, animated: animated)
+        
     }
     
 }

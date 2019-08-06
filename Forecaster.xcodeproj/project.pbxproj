@@ -33,16 +33,16 @@
 		AC14188D22F4D015002758DD /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14188C22F4D015002758DD /* HistoryVC.swift */; };
 		AC14188F22F5526A002758DD /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14188E22F5526A002758DD /* String+Utils.swift */; };
 		AC14189322F6A5C0002758DD /* Int+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189222F6A5C0002758DD /* Int+Utils.swift */; };
-		AC14189622F6CD90002758DD /* CustomForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189422F6CD90002758DD /* CustomForecastCollectionViewCell.swift */; };
-		AC14189722F6CD90002758DD /* CustomForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC14189522F6CD90002758DD /* CustomForecastCollectionViewCell.xib */; };
-		AC14189D22F6E90C002758DD /* OneDayForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189B22F6E90C002758DD /* OneDayForecastTableViewCell.swift */; };
-		AC14189E22F6E90C002758DD /* OneDayForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC14189C22F6E90C002758DD /* OneDayForecastTableViewCell.xib */; };
-		AC1418A122F6EAB1002758DD /* CustomForecastTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189F22F6EAB1002758DD /* CustomForecastTableviewCell.swift */; };
-		AC1418A222F6EAB1002758DD /* CustomForecastTableviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418A022F6EAB1002758DD /* CustomForecastTableviewCell.xib */; };
-		AC1418A622F6F985002758DD /* FiveDaysForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418A422F6F985002758DD /* FiveDaysForecastTableViewCell.swift */; };
-		AC1418A722F6F985002758DD /* FiveDaysForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418A522F6F985002758DD /* FiveDaysForecastTableViewCell.xib */; };
-		AC1418AF22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418AD22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift */; };
-		AC1418B022F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418AE22F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib */; };
+		AC14189622F6CD90002758DD /* OneDayForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189422F6CD90002758DD /* OneDayForecastCollectionViewCell.swift */; };
+		AC14189722F6CD90002758DD /* OneDayForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC14189522F6CD90002758DD /* OneDayForecastCollectionViewCell.xib */; };
+		AC14189D22F6E90C002758DD /* FiveDaysForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189B22F6E90C002758DD /* FiveDaysForecastTableViewCell.swift */; };
+		AC14189E22F6E90C002758DD /* FiveDaysForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC14189C22F6E90C002758DD /* FiveDaysForecastTableViewCell.xib */; };
+		AC1418A122F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14189F22F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.swift */; };
+		AC1418A222F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418A022F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.xib */; };
+		AC1418A622F6F985002758DD /* CurrentWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418A422F6F985002758DD /* CurrentWeatherTableViewCell.swift */; };
+		AC1418A722F6F985002758DD /* CurrentWeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418A522F6F985002758DD /* CurrentWeatherTableViewCell.xib */; };
+		AC1418AF22F70126002758DD /* CustomCurrentWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418AD22F70126002758DD /* CustomCurrentWeatherTableViewCell.swift */; };
+		AC1418B022F70126002758DD /* CustomCurrentWeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC1418AE22F70126002758DD /* CustomCurrentWeatherTableViewCell.xib */; };
 		AC1418B322F7144E002758DD /* WeatherInfoContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1418B222F7144E002758DD /* WeatherInfoContainerVC.swift */; };
 		AC51061822F82E4700F6B2C2 /* WeatherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51061722F82E4700F6B2C2 /* WeatherObject.swift */; };
 		AC51061A22F86BC900F6B2C2 /* HistoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51061922F86BC900F6B2C2 /* HistoryDetailVC.swift */; };
@@ -86,16 +86,16 @@
 		AC14188C22F4D015002758DD /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
 		AC14188E22F5526A002758DD /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		AC14189222F6A5C0002758DD /* Int+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Utils.swift"; sourceTree = "<group>"; };
-		AC14189422F6CD90002758DD /* CustomForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomForecastCollectionViewCell.swift; sourceTree = "<group>"; };
-		AC14189522F6CD90002758DD /* CustomForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomForecastCollectionViewCell.xib; sourceTree = "<group>"; };
-		AC14189B22F6E90C002758DD /* OneDayForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayForecastTableViewCell.swift; sourceTree = "<group>"; };
-		AC14189C22F6E90C002758DD /* OneDayForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneDayForecastTableViewCell.xib; sourceTree = "<group>"; };
-		AC14189F22F6EAB1002758DD /* CustomForecastTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomForecastTableviewCell.swift; sourceTree = "<group>"; };
-		AC1418A022F6EAB1002758DD /* CustomForecastTableviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomForecastTableviewCell.xib; sourceTree = "<group>"; };
-		AC1418A422F6F985002758DD /* FiveDaysForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysForecastTableViewCell.swift; sourceTree = "<group>"; };
-		AC1418A522F6F985002758DD /* FiveDaysForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FiveDaysForecastTableViewCell.xib; sourceTree = "<group>"; };
-		AC1418AD22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFiveDaysForecastTableViewCell.swift; sourceTree = "<group>"; };
-		AC1418AE22F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFiveDaysForecastTableViewCell.xib; sourceTree = "<group>"; };
+		AC14189422F6CD90002758DD /* OneDayForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayForecastCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC14189522F6CD90002758DD /* OneDayForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneDayForecastCollectionViewCell.xib; sourceTree = "<group>"; };
+		AC14189B22F6E90C002758DD /* FiveDaysForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysForecastTableViewCell.swift; sourceTree = "<group>"; };
+		AC14189C22F6E90C002758DD /* FiveDaysForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FiveDaysForecastTableViewCell.xib; sourceTree = "<group>"; };
+		AC14189F22F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFiveDaysForecastTableviewCell.swift; sourceTree = "<group>"; };
+		AC1418A022F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFiveDaysForecastTableviewCell.xib; sourceTree = "<group>"; };
+		AC1418A422F6F985002758DD /* CurrentWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherTableViewCell.swift; sourceTree = "<group>"; };
+		AC1418A522F6F985002758DD /* CurrentWeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentWeatherTableViewCell.xib; sourceTree = "<group>"; };
+		AC1418AD22F70126002758DD /* CustomCurrentWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCurrentWeatherTableViewCell.swift; sourceTree = "<group>"; };
+		AC1418AE22F70126002758DD /* CustomCurrentWeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCurrentWeatherTableViewCell.xib; sourceTree = "<group>"; };
 		AC1418B222F7144E002758DD /* WeatherInfoContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoContainerVC.swift; sourceTree = "<group>"; };
 		AC51061722F82E4700F6B2C2 /* WeatherObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherObject.swift; sourceTree = "<group>"; };
 		AC51061922F86BC900F6B2C2 /* HistoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailVC.swift; sourceTree = "<group>"; };
@@ -208,10 +208,9 @@
 		AC14189822F6CDA8002758DD /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				AC1418A322F6F923002758DD /* OneDayForecast */,
-				AC1418B122F705A6002758DD /* FiveDaysForecast */,
-				AC14189422F6CD90002758DD /* CustomForecastCollectionViewCell.swift */,
-				AC14189522F6CD90002758DD /* CustomForecastCollectionViewCell.xib */,
+				AC1418A322F6F923002758DD /* FiveDaysForecast */,
+				AC1418B122F705A6002758DD /* CurrentWeather */,
+				AC51063A22F8FFED00F6B2C2 /* OneDayForecast */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -240,26 +239,26 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		AC1418A322F6F923002758DD /* OneDayForecast */ = {
+		AC1418A322F6F923002758DD /* FiveDaysForecast */ = {
 			isa = PBXGroup;
 			children = (
-				AC14189B22F6E90C002758DD /* OneDayForecastTableViewCell.swift */,
-				AC14189C22F6E90C002758DD /* OneDayForecastTableViewCell.xib */,
-				AC14189F22F6EAB1002758DD /* CustomForecastTableviewCell.swift */,
-				AC1418A022F6EAB1002758DD /* CustomForecastTableviewCell.xib */,
-			);
-			path = OneDayForecast;
-			sourceTree = "<group>";
-		};
-		AC1418B122F705A6002758DD /* FiveDaysForecast */ = {
-			isa = PBXGroup;
-			children = (
-				AC1418A422F6F985002758DD /* FiveDaysForecastTableViewCell.swift */,
-				AC1418A522F6F985002758DD /* FiveDaysForecastTableViewCell.xib */,
-				AC1418AD22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift */,
-				AC1418AE22F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib */,
+				AC14189B22F6E90C002758DD /* FiveDaysForecastTableViewCell.swift */,
+				AC14189C22F6E90C002758DD /* FiveDaysForecastTableViewCell.xib */,
+				AC14189F22F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.swift */,
+				AC1418A022F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.xib */,
 			);
 			path = FiveDaysForecast;
+			sourceTree = "<group>";
+		};
+		AC1418B122F705A6002758DD /* CurrentWeather */ = {
+			isa = PBXGroup;
+			children = (
+				AC1418A422F6F985002758DD /* CurrentWeatherTableViewCell.swift */,
+				AC1418A522F6F985002758DD /* CurrentWeatherTableViewCell.xib */,
+				AC1418AD22F70126002758DD /* CustomCurrentWeatherTableViewCell.swift */,
+				AC1418AE22F70126002758DD /* CustomCurrentWeatherTableViewCell.xib */,
+			);
+			path = CurrentWeather;
 			sourceTree = "<group>";
 		};
 		AC1418B422F755A5002758DD /* Managers */ = {
@@ -278,6 +277,15 @@
 				AC51061B22F8866A00F6B2C2 /* WeatherInfoViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AC51063A22F8FFED00F6B2C2 /* OneDayForecast */ = {
+			isa = PBXGroup;
+			children = (
+				AC14189422F6CD90002758DD /* OneDayForecastCollectionViewCell.swift */,
+				AC14189522F6CD90002758DD /* OneDayForecastCollectionViewCell.xib */,
+			);
+			path = OneDayForecast;
 			sourceTree = "<group>";
 		};
 		EE4FF1306A686FA3EDFF3489 /* Frameworks */ = {
@@ -348,14 +356,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC1418B022F70126002758DD /* CustomFiveDaysForecastTableViewCell.xib in Resources */,
-				AC14189E22F6E90C002758DD /* OneDayForecastTableViewCell.xib in Resources */,
+				AC1418B022F70126002758DD /* CustomCurrentWeatherTableViewCell.xib in Resources */,
+				AC14189E22F6E90C002758DD /* FiveDaysForecastTableViewCell.xib in Resources */,
 				AC14184F22F2D609002758DD /* LaunchScreen.storyboard in Resources */,
 				AC14184C22F2D609002758DD /* Assets.xcassets in Resources */,
-				AC1418A722F6F985002758DD /* FiveDaysForecastTableViewCell.xib in Resources */,
-				AC14189722F6CD90002758DD /* CustomForecastCollectionViewCell.xib in Resources */,
+				AC1418A722F6F985002758DD /* CurrentWeatherTableViewCell.xib in Resources */,
+				AC14189722F6CD90002758DD /* OneDayForecastCollectionViewCell.xib in Resources */,
 				AC14184A22F2D607002758DD /* Main.storyboard in Resources */,
-				AC1418A222F6EAB1002758DD /* CustomForecastTableviewCell.xib in Resources */,
+				AC1418A222F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,10 +418,10 @@
 			files = (
 				AC14187422F313E4002758DD /* Forecast.swift in Sources */,
 				AC14186622F2E85E002758DD /* RequestBuilder.swift in Sources */,
-				AC14189622F6CD90002758DD /* CustomForecastCollectionViewCell.swift in Sources */,
+				AC14189622F6CD90002758DD /* OneDayForecastCollectionViewCell.swift in Sources */,
 				AC14188222F43238002758DD /* UIImageView+Utils.swift in Sources */,
 				AC51061A22F86BC900F6B2C2 /* HistoryDetailVC.swift in Sources */,
-				AC1418A622F6F985002758DD /* FiveDaysForecastTableViewCell.swift in Sources */,
+				AC1418A622F6F985002758DD /* CurrentWeatherTableViewCell.swift in Sources */,
 				AC14187022F2E975002758DD /* CurrentWeather.swift in Sources */,
 				AC14186522F2E85E002758DD /* Result.swift in Sources */,
 				AC14186222F2E85E002758DD /* WeatherManager.swift in Sources */,
@@ -426,14 +434,14 @@
 				AC14186422F2E85E002758DD /* WebError.swift in Sources */,
 				AC14187622F408DB002758DD /* TextBasedWeatherVC.swift in Sources */,
 				AC51061F22F898F800F6B2C2 /* HistoryViewModel.swift in Sources */,
-				AC1418A122F6EAB1002758DD /* CustomForecastTableviewCell.swift in Sources */,
+				AC1418A122F6EAB1002758DD /* CustomFiveDaysForecastTableviewCell.swift in Sources */,
 				AC14186822F2E85E002758DD /* Reachability.swift in Sources */,
 				AC51063522F8BC8D00F6B2C2 /* CustomError.swift in Sources */,
-				AC1418AF22F70126002758DD /* CustomFiveDaysForecastTableViewCell.swift in Sources */,
+				AC1418AF22F70126002758DD /* CustomCurrentWeatherTableViewCell.swift in Sources */,
 				AC51063922F8C47C00F6B2C2 /* CurrentLocationViewModel.swift in Sources */,
 				AC14188F22F5526A002758DD /* String+Utils.swift in Sources */,
 				AC14187822F40A0A002758DD /* MapBasedWeatherVC.swift in Sources */,
-				AC14189D22F6E90C002758DD /* OneDayForecastTableViewCell.swift in Sources */,
+				AC14189D22F6E90C002758DD /* FiveDaysForecastTableViewCell.swift in Sources */,
 				AC1418B322F7144E002758DD /* WeatherInfoContainerVC.swift in Sources */,
 				AC14186322F2E85E002758DD /* APIError.swift in Sources */,
 				AC51061822F82E4700F6B2C2 /* WeatherObject.swift in Sources */,
