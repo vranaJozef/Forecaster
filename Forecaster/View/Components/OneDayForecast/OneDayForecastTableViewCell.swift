@@ -65,14 +65,14 @@ extension OneDayForecastTableViewCell: UITableViewDataSource, UITableViewDelegat
         let cell = forecastTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CustomForecastTableviewCell
         if let forecastDetail = self.forecastDetail {
             cell.dayLabel.text = forecastDetail[indexPath.row].dataTime?.dayOfTheWeek()
-            cell.minTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.minTemperature?.toString()
-            cell.maxTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.maxTemperature?.toString()
+            cell.minTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.minTemperature?.temperatureToString().celcius()
+            cell.maxTemperatureLabel.text = forecastDetail[indexPath.row].forecastMain?.maxTemperature?.temperatureToString().celcius()
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return 40
     }
 }

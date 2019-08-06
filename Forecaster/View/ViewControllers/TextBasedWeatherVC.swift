@@ -38,8 +38,12 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
         
-    @IBAction func onCurrentWeather(_ sender: UIButton) {
-        self.fetchWeather(city: self.city)
+    @IBAction func onCurrentWeather(_ sender: UIButton) {        
+        if city.isEmpty {
+            self.handleError()
+        } else {
+            self.fetchWeather(city: self.city)
+        }
     }
     
     func fetchWeather(city: String){
@@ -108,6 +112,9 @@ class TextBasedWeatherVC: UIViewController, UITextFieldDelegate {
         if let city = textField.text {
             self.searchCompleter.queryFragment = city
         }
+        if (range.location == 0 && string.count == 0) {
+            self.searchCompleter.queryFragment = ""
+        }
         
         return true
     }
@@ -152,6 +159,7 @@ extension TextBasedWeatherVC: MKLocalSearchCompleterDelegate {
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        
+        searchResults = nil
+        self.reloadTableView()
     }
 }

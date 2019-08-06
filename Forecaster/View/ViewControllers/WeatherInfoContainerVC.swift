@@ -127,7 +127,7 @@ extension WeatherInfoContainerVC: UICollectionViewDataSource, UICollectionViewDe
         let cell = self.forecastCollectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellID, for: indexPath) as! CustomForecastCollectionViewCell
         if let forecastList = self.viewModel?.oneDayForecast {
             cell.timeLabel?.text = indexPath.row == 0 ? "Now" : forecastList[indexPath.row].dataTime?.toUTC()
-            cell.temperature?.text = forecastList[indexPath.row].forecastMain?.temperature?.toString().celcius()
+            cell.temperature?.text = forecastList[indexPath.row].forecastMain?.temperature?.temperatureToString().celcius()
         }
         
         return cell

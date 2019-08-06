@@ -26,10 +26,17 @@ class MapBasedWeatherResultVC: UIViewController {
     func updateGoogleStaticMapsImage() {
         var mapUrl = ""
         if let lat = self.weatherObject?.currentWeather?.coordinates?.latitude, let lon = self.weatherObject?.currentWeather?.coordinates?.lonngtitude {
-            let staticMapUrl: String = "https://maps.google.com/maps/api/staticmap?markers=\(lat),\(lon)&\("zoom=15&size=\(2 * Int(locationImage.frame.size.width))x\(2 * Int(locationImage.frame.size.height))")&sensor=true&key=AIzaSyAsaqeR3rfYNXW8qFESu9DyiLmt85rsue8"            
-            mapUrl = URL(string: staticMapUrl)?.absoluteString ?? ""
+            let staticMapUrl = URL(string: "https://maps.google.com/maps/api/staticmap")
+            let markers = lat.coordinateToString() + "," + lon.coordinateToString()
+            let size = "\(2 * Int(locationImage.frame.size.width))x\(2 * Int(locationImage.frame.size.height))"
+            let queryItems = ["markers":markers,
+                              "zoom":"14",
+                              "size":size,
+                              "sensor": "true",
+                              "key": "AIzaSyAsaqeR3rfYNXW8qFESu9DyiLmt85rsue8"]
+            mapUrl = (staticMapUrl?.addURLParameters(items: queryItems).absoluteString)!
         }
-        self.locationImage.imageFromServerURL(mapUrl, placeHolder: UIImage(named: "palceholder"))
+        self.locationImage.imageFromServerURL(mapUrl, placeHolder: UIImage(named: "placeholder"))
     }
     
     // MARK: - Navigation

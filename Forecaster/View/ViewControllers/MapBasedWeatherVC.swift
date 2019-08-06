@@ -31,6 +31,12 @@ class MapBasedWeatherVC: UIViewController {
         self.mapView.addGestureRecognizer(longPressRecogniser)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.reset()
+    }
+    
     // MARK: - Actions
     
     @objc func handleLongPress(_ gestureRecognizer : UIGestureRecognizer){
@@ -92,6 +98,14 @@ class MapBasedWeatherVC: UIViewController {
         guard let coordinate = locationManager.location?.coordinate else {return}
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
         mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func reset() {
+        self.currentWeather = nil
+        self.forecast = nil
+        self.weatherObject = nil
+        self.mapPin = nil
+        self.mapView.removeAnnotations(self.mapView.annotations)
     }
     
     // MARK: - Navigation

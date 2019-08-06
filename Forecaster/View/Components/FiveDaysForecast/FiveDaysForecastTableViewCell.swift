@@ -73,6 +73,6 @@ extension FiveDaysForecastTableViewCell: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return 40
     }
 }

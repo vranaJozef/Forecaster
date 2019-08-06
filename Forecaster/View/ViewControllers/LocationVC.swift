@@ -33,15 +33,14 @@ class LocationVC: UIViewController, CurrentLocationViewModelDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        
-        self.fetchWeather()
+        guard let location = self.locationManager.location else { return }
+        self.fetchWeather(location: location.coordinate)
     }
     
     // MARK: - Private
     
-    func fetchWeather(){
-        guard let location = self.locationManager.location else { return }
-        self.viewModel = CurrentLocationViewModel(location: location.coordinate)
+    func fetchWeather(location: CLLocationCoordinate2D){
+        self.viewModel = CurrentLocationViewModel(location: location)
         self.viewModel?.delegate = self
         self.viewModel?.fetchWeather()
     }
@@ -67,6 +66,7 @@ class LocationVC: UIViewController, CurrentLocationViewModelDelegate {
 extension LocationVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    
+        guard let location = manager.location else { return }
+        self.fetchWeather(location: location.coordinate)
     }
 }

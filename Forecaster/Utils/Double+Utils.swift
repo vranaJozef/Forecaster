@@ -9,7 +9,12 @@
 import Foundation
 
 extension Double {
-    func toString() -> String {
+    
+    func temperatureToString() -> String {
         return String(format: "%.1f",self)
-    }    
+    }
+    
+    func coordinateToString() -> String {
+        return String(format: "%.2f",self)
+    }
 }

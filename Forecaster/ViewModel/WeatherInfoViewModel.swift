@@ -78,14 +78,14 @@ class WeatherInfoViewModel {
             tableData["Sunrise"] = currentWeather.sys?.sunrise?.toUTC()
             tableData["Sunset"] = currentWeather.sys?.sunset?.toUTC()
             tableData["Humidity"] = currentWeather.main?.humidity?.toString().percent()
-            tableData["Wind"] = currentWeather.wind?.speed?.toString().windSpeed()
+            tableData["Wind"] = currentWeather.wind?.speed?.temperatureToString().windSpeed()
         }
         tabelTitles = Array(tableData.keys).sorted()
     }
     
     func handleCurrentWeather() {
         if let currentWeather = self.weatherObject?.currentWeather {
-            self.temperatureLabel = currentWeather.main?.temperature?.toString().celcius()
+            self.temperatureLabel = currentWeather.main?.temperature?.temperatureToString().celcius()
             self.descriptionLabel = currentWeather.weather?[0].main
             self.cityLabel = currentWeather.name
         }
@@ -98,10 +98,12 @@ class WeatherInfoViewModel {
             self.fiveDayForecast = [ForecastListDetail]()
             for forecasItem in forecastList {
                 let desiredDate = Date(timeIntervalSince1970: Double(forecasItem.dataTime!))
+                // if there's difference between current date and dataTime from forecast 24h, add this item
                 if let diff = Calendar.current.dateComponents([.hour], from: Date(), to: desiredDate).hour, diff < 24 {
                     oneDayForecast?.append(forecasItem)
                 }
-                if let diff = Calendar.current.dateComponents([.hour], from: Date(), to: desiredDate).hour, diff > 24 {
+                // if there's difference between current date and dataTime from forecast 24h and more, add this item for forecast for next day same time
+                if let diff = Calendar.current.dateComponents([.hour], from: Date(), to: desiredDate).hour, diff >= 24 {
                     fiveDayForecast?.append(forecasItem)
                 }
             }
